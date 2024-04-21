@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var currentRating = 0
     var body: some View {
-        VStack {
-            Button {
-                // code here
-            } label: {
-                Text("Button 1")
-            }
-
-        }
-        .padding()
+        RatingsView(
+            maxRating: 5,
+            currentRating: $currentRating,
+            width: 40
+        )
     }
 }
 
