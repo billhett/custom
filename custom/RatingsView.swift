@@ -6,24 +6,47 @@
 //
 
 import SwiftUI
-
+/// A view of inline imageaa that represent a rating
+/// Tapping on an image will change it from an unfilled to a filled version of the image
+///
+/// The following example shows a ratings view with a max of 3 hearts
+///  bound to heartRating property and a width of 50 specified
+///
+///  RatingsView(
+///  maxRating: 3,
+///  currentRating: $heartRating,
+///  width: 50,
+///  symbol: "heart",
+///  color: .red
+/// )
 struct RatingsView: View {
     let maxRating: Int
     @Binding var currentRating: Int
     let width: Int
+    let symbol: String
+    let color: Color
     
-    init(maxRating: Int, currentRating: Binding<Int>, width: Int = 30) {
+    init(
+        maxRating: Int,
+        currentRating: Binding<Int>,
+        width: Int = 30,
+        symbol: String = "star",
+        color: Color = .yellow
+        
+    ) {
         self.maxRating = maxRating
         self._currentRating = currentRating
         self.width = width
+        self.symbol = symbol
+        self.color = color
     }
     
     var body: some View {
         HStack{
-            Image(systemName: "star")
+            Image(systemName: symbol)
                 .resizable()
                 .scaledToFit()
-                .foregroundStyle(.yellow)
+                .foregroundStyle(color)
                 .symbolVariant(.slash)
                 .opacity(currentRating == 0 ? 0:1)
                 .onTapGesture {
@@ -32,10 +55,10 @@ struct RatingsView: View {
                     }
                 }
             ForEach(0..<maxRating, id: \.self) {rating in
-                Image(systemName: "star")
+                Image(systemName: symbol)
                     .resizable()
                     .scaledToFit()
-                    .foregroundStyle(.yellow)
+                    .foregroundStyle(color)
                     .symbolVariant(rating<currentRating ? .fill :.none)
                     .onTapGesture {
                         withAnimation {
