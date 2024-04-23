@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var currentRating = 0
     @State private var heartRating = 0
     @State private var pinRating = 0
+    @State private var bookMarkRating = 0
     
     var body: some View {
         RatingsView(
@@ -31,6 +32,13 @@ struct ContentView: View {
             width: 40,
             symbol: "pin",
             color: .blue
+        )
+        RatingsView(
+            maxRating: 5,
+            currentRating: $bookMarkRating,
+            //width: <#T##Int#>,
+            symbolEnum: .bookmark,
+            color: .teal
         )
     }
 }
